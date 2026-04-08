@@ -21,9 +21,16 @@ pipeline {
             }
         }
 
+        stage('Stop Old Container') {
+            steps {
+                bat 'docker stop greeting-api || exit 0'
+                bat 'docker rm greeting-api || exit 0'
+            }
+        }
+
         stage('Run Container') {
             steps {
-                bat 'docker run -d -p 8085:80 greeting-api'
+                bat 'docker run -d -p 8085:8080 greeting-api'
             }
         }
     }
